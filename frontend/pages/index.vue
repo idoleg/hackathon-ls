@@ -6,7 +6,7 @@
         frontend
       </h1>
       <h2 class="subtitle">
-        Nuxt.js project
+        Привет! Это фронтенд для проекта создоваемого на хакатоне.
       </h2>
       <div class="links">
         <a
