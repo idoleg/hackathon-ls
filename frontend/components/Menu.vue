@@ -70,6 +70,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 8;
   background-color: rgba(0, 0, 0, 0.7);
   /* background: linear-gradient(90deg, #d4fc79 0%, #96e6a1 100%); */
 }
