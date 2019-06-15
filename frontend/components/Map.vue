@@ -59,8 +59,8 @@ export default {
 </script>
 
 <style>
-.ymap-container {
-  height: 600px;
+ .ymap-container {
+  height: 100vh;
   width: 100%;
 }
 </style>
