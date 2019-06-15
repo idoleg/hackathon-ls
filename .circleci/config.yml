@@ -1,0 +1,118 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/deploy
+    steps:
+      - checkout
+      - run:
+          name: "Check current verison of git"
+          command: git --version
+      - run:
+          name: "Install rsync"
+          command: sudo apt install rsync
+      - run:
+          name: "Check current verison of node"
+          command: node -v    
+      - run: echo "Start deploy"
+      - add_ssh_keys:
+          fingerprints:
+            - "08:25:f2:55:c0:fe:84:93:88:12:89:ee:57:58:77:95"
+      - run: echo $REMOTE_HOSTKEY >> ~/.ssh/known_hosts
+      - save_cache:
+          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/deploy
+
+  deploy_frontend:
+    machine:
+      enabled: true    
+    working_directory: ~/deploy/frontend  
+    steps:
+      - restore_cache:
+          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}    
+      - run:
+          name: "Check files"
+          command: |
+              ls ~/deploy -al  
+              ls -al     
+      - deploy:
+          name: deploy
+          command: |
+              rsync -e "ssh -o StrictHostKeyChecking=no" -arvc ~/deploy/frontend $DEPLOYSERVERUSER@$DEPLOYSERVERIP:/applications/
+              ssh $DEPLOYSERVERUSER@$DEPLOYSERVERIP 'cd /applications/frontend; npm i; npm run build; pm2 reload app-front'
+
+  deploy_backend:
+    machine:
+      enabled: true    
+    working_directory: ~/deploy/backend  
+    steps:
+      - restore_cache:
+          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}    
+      - run:
+          name: "Check files"
+          command: |
+              ls ~/deploy -al  
+              ls -al     
+      - deploy:
+          name: deploy
+          command: |
+              rsync -e "ssh -o StrictHostKeyChecking=no" -arvc ~/deploy/backend $DEPLOYSERVERUSER@$DEPLOYSERVERIP:/applications/
+              ssh $DEPLOYSERVERUSER@$DEPLOYSERVERIP 'cd /applications/backend; npm i; pm2 reload app-back'
+              
+
+  deploy_bin:
+    machine:
+      enabled: true    
+    working_directory: ~/deploy/bin  
+    steps:
+      - restore_cache:
+          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}    
+      - run:
+          name: "Check files"
+          command: |
+              ls ~/deploy -al  
+              ls -al     
+      - deploy:
+          name: deploy
+          command: |
+              rsync -e "ssh -o StrictHostKeyChecking=no" -arvc ~/deploy/bin $DEPLOYSERVERUSER@$DEPLOYSERVERIP:/applications/
+              ssh $DEPLOYSERVERUSER@$DEPLOYSERVERIP 'cd /applications/bin; pm2 delete all; pm2 start applications.json'
+
+workflows:
+  version: 2
+  pipeline:
+    jobs:
+      - approve_build:
+          type: approval
+          filters:
+            branches:
+              only: master
+      - build:
+          requires:
+            - approve_build
+
+      - approve_deploy_frontend:
+          type: approval
+          requires:
+            - build
+      - deploy_frontend:
+          requires:
+            - approve_deploy_frontend
+
+      - approve_deploy_backend:
+          type: approval
+          requires:
+            - build
+      - deploy_backend:
+          requires:
+            - approve_deploy_backend
+
+      - approve_deploy_bin:
+          type: approval
+          requires:
+            - build
+      - deploy_bin:
+          requires:
+            - approve_deploy_bin

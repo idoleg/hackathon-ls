@@ -1,0 +1,18 @@
+{
+  "apps": [
+    {
+      "name": "app-front",
+      "cwd": "/applications/frontend/",
+      "script": "npm",
+      "args": "start",
+      "watch": true
+    },
+    {
+        "name": "app-back",
+        "cwd": "/applications/backend/",
+        "script": "npm",
+        "args": "start",
+        "watch": true
+      }
+  ]
+}
