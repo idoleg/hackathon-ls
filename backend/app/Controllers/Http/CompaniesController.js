@@ -8,9 +8,16 @@ class CompaniesController {
         // if (validation.fails()) {
         //     return validation.messages()
         // }
-        let data = await Database.table('tb_oper').select('*');
-        //console.log(data);
-        return data;
+        const region = request.get().region;
+        if(region){
+            let data = await Database.table('tb_oper').where('tc_region', '=', region).select('*');
+            //console.log(data);
+            return data;
+        }else{
+            let data = await Database.table('tb_oper').select('*');
+            //console.log(data);
+            return data;
+        }
     }
 
     async containers({ request, params }) {
@@ -18,6 +25,7 @@ class CompaniesController {
         // if (validation.fails()) {
         //     return validation.messages()
         // }
+        
         let data = await Database.table('tb_oper_obejct').select('*').where('tc_ogrn', '=', params.id).limit(20);
         //console.log(data);
         return data;
@@ -27,9 +35,21 @@ class CompaniesController {
         const token = use('Config').get('app.ymapToken')
         const oper = await Database.table('tb_oper').where('tc_ogrn', '=', params.id);
         const region = oper[0].tc_region; 
-        let data = await Database.table('tb_oper_obejct').select('*').where('tc_ogrn', '=', params.id).limit(20);
-        return data;
-        return await this.getCoord(region+', Большая Санкт-Петербургская ул, 76', token  );
+        //3707
+
+        const queryCount= await Database.from('tb_oper_obejct').where('tc_ogrn', '=', params.id).whereNull('tc_coord').count()
+        const count = queryCount[0]['count(*)']
+        return count;
+        for(let i = 1; i <=count; i++){
+            let data = await Database.table('tb_oper_obejct').select('*').where('tc_ogrn', '=', params.id).whereNull('tc_coord').forPage(i,1);
+            data = data[0];
+            const cord = await this.getCoord(region+', Большая Санкт-Петербургская ул, 76', token  );
+            const res = await Database.table('tb_oper_obejct').whereRaw('tc_ogrn = ? AND tc_num = ?', [params.id, data.tc_num]).update('tc_coord', cord)
+            console.log(i);
+        }
+        
+        //return data;
+        //return await this.getCoord(region+', Большая Санкт-Петербургская ул, 76', token  );
     }
 
     async getCoord(place, token) {
