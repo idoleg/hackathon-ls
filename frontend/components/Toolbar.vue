@@ -15,9 +15,13 @@
 </template>
 
 <script>
-import Menu from "./Menu"
+import Menu from "./Menu";
+import { mapGetters } from 'vuex';
 export default {
     components: {Menu},
+    computed: mapGetters({
+      containers: "containers/containers"
+    }),
     data() {
       return {
         regions: [],
@@ -54,7 +58,7 @@ export default {
       async onCompanyChange(e) {
         try {
           let {data} = await this.$axios.get(`/api/companies/${e}/containers`);
-          this.$store.commit('containers/setContainers');
+          this.$store.commit('containers/setContainers', data);
         } catch (err) {
           console.log(err);
         }

@@ -3,7 +3,7 @@
     <!-- <el-row> -->
       <el-col :span="16">
         <yandex-map :coords="currentPos" @map-was-initialized="initMap" class="hybrid" zoom="10" :controls="['geolocationControl']">
-          <ymap-marker v-for="marker in markers" :key="marker.id" markerId="123" marker-type="placemark" hint-content="element.hint" :coords="marker.coords"></ymap-marker>
+          <ymap-marker v-for="container in containers" :key="container.tc_num" markerId="123" marker-type="placemark" hint-content="element.hint" :coords="container.coords"></ymap-marker>
         </yandex-map>
       </el-col>
       <el-col :span="8">
@@ -15,10 +15,14 @@
 
 <script>
 import Toolbar from '../components/Toolbar';
+import { mapGetters } from 'vuex';
 export default {
   components: {
     Toolbar
   },
+  computed: mapGetters({
+    containers: "containers/containers"
+  }),
   data() {
     return {
       isMounted: false,
