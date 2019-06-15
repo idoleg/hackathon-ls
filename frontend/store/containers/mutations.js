@@ -10,7 +10,9 @@ export default {
         let data = containers.map((container) => {
             return {
               ...container,
-              coords: container.tc_coords.split(' ')
+              coords: container.tc_coord.split(' ').map((coord) => {
+                  return parseFloat(coord);
+              })
             };
           })
         state.list = data;
