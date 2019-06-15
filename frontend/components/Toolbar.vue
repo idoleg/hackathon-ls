@@ -23,6 +23,9 @@
         >{{company.tc_name}}</el-option>
       </el-select>
     </div>
+    <el-button size="medium" @click="$root.$emit('changeMap')">
+      Update
+    </el-button>
   </section>
 </template>
 
@@ -82,6 +85,7 @@ export default {
         console.log(e);
         let { data } = await this.$axios.get(`/api/companies/${e}/containers`);
         this.$store.commit("containers/setContainers", data);
+        this.$root.$emit('changeMap')
       } catch (err) {
         console.log(err);
       }
