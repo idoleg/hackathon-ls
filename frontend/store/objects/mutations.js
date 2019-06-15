@@ -3,7 +3,7 @@ export default {
         state.list.push(company)
     },
 
-    setCompanies(state, companies) {
+    setObjects(state, companies) {
         state.list = companies;
     },
 
