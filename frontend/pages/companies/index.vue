@@ -7,18 +7,20 @@
 </template>
 
 <script>
-import axios from 'axios';
+//import axios from 'axios';
+import { mapMutations, mapGetters } from "vuex";
 export default {
-  computed: {
-    companies() {
-      return this.$store.state.companies.list;
-    }
-  },
-  async fetch ({ store, params }) {
-    let { data } = await axios.get('/api/companies')
-    store.commit('setCompanies', data)
-  },
+  computed: mapGetters({
+    companies: "companies/companies"
+  }),
   methods: {
+    addCompany(e) {
+      const text = e.target.value;
+      if (text.trim()) {
+        this.$store.commit("companies/add", { text });
+      }
+      e.target.value = "";
+    },
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex === 1) {
         return "warning-row";
@@ -26,11 +28,26 @@ export default {
         return "success-row";
       }
       return "";
-    }
+    },
+    async loadCompanies() {
+      let data = await this.$axios.$get("/api/companies");
+      console.log(data);
+      this.$store.commit("setCompanies", data);
+    },
+    ...mapMutations({
+      toggle: "companies/toggle",
+      setCompanies: "companies/setCompanies"
+    })
   },
-  data() {
-    return {
-    };
+  created() {
+    this.loadCompanies();
+  },
+  async asyncData({ $axios, store }) {
+    /*
+    let data = await $axios.$get('/api/companies');
+    console.log(data);
+    store.commit('setCompanies', data);
+    */
   }
 };
 </script>
