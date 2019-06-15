@@ -65,6 +65,13 @@ export default {
     initMap(ymap) {
       this.ymap = ymap;
       this.initUserPos();
+      this.objectManager = new ymaps.ObjectManager({
+        // Чтобы метки начали кластеризоваться, выставляем опцию.
+        clusterize: true,
+        // ObjectManager принимает те же опции, что и кластеризатор.
+        gridSize: 32,
+        clusterDisableClickZoom: true
+      });
       this.changeMap();
     },
     initUserPos() {
@@ -77,21 +84,21 @@ export default {
         }
       );
     },
-    changeMap(ymap) {
-      const objectManager = new ymaps.ObjectManager({
-        // Чтобы метки начали кластеризоваться, выставляем опцию.
-        clusterize: true,
-        // ObjectManager принимает те же опции, что и кластеризатор.
-        gridSize: 32,
-        clusterDisableClickZoom: true
-      });
+    changeMap() {
+      if (!this.ymap || !ymaps) {
+        console.warn('@changeMap: ymap or ymaps not init')
+        return;
+      };
 
-      objectManager.objects.options.set("preset", "islands#greenDotIcon");
-      objectManager.clusters.options.set("preset", "islands#greenClusterIcons");
-      this.ymap.geoObjects.add(objectManager);
-      console.log(this.containers)
+      this.objectManager.removeAll()
+      
+
+      this.objectManager.objects.options.set("preset", "islands#greenDotIcon");
+      this.objectManager.clusters.options.set("preset", "islands#greenClusterIcons");
+      this.ymap.geoObjects.add(this.objectManager);
+      console.log(this.containers);
       // Размещение геообъекта на карте.
-      objectManager.add(this.containers);
+      this.objectManager.add(this.containers);
     }
   }
 };

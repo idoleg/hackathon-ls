@@ -39,7 +39,7 @@ class CompaniesController {
 
         const queryCount= await Database.from('tb_oper_obejct').where('tc_ogrn', '=', params.id).count() //.whereNull('tc_coord')
         const count = queryCount[0]['count(*)']
-        return count;
+        //return count;
         for(let i = 1; i <=count; i++){
             let data = await Database.table('tb_oper_obejct').select('*').where('tc_ogrn', '=', params.id).forPage(i,1);
             data = data[0];
