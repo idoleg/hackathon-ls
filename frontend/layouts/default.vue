@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AppHeader />
+    <!-- <AppHeader /> -->
     <nuxt/>
   </div>
 </template>
@@ -16,5 +16,11 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+*{
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
+}
 </style>
 
