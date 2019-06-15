@@ -16,6 +16,24 @@ module.exports = {
   plugins: [
     '@/plugins/element-ui'
   ],
+  modules: [
+    // Doc: https://axios.nuxtjs.org/usage
+    '@nuxtjs/axios',
+    ['vue-yandex-maps/nuxt', {
+      apiKey: 'e713c06f-097d-4de1-9547-59177e5d2157'
+    }]
+  ],
+  /*
+  ** Axios module configuration
+  ** See https://axios.nuxtjs.org/options
+  */
+  axios: {
+    proxy: true
+  },
+
+  proxy: {
+    '/api/': 'http://localhost:3000'
+  },
   /*
   ** Customize the progress bar color
   */
