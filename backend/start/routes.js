@@ -20,4 +20,5 @@ Route.resource('/blogs', 'BlogController').apiOnly().formats(['json'])
 Route.get('/', 'IndexController.index').validator('Index')
 Route.get('/companies', 'CompaniesController.index')
 Route.get('/companies/:id/containers', 'CompaniesController.containers')
+Route.get('/companies/:id/calculateGeo', 'CompaniesController.calculateGeo')
 

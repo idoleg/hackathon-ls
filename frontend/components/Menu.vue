@@ -12,7 +12,7 @@
     <div class="app-menu" v-if="isOpen">
       <h3 class="app-menu__title">Логистика и ТБО</h3>
 
-      <ul>
+      <ul  @click.capture="toggle">
         <nuxt-link v-for="item in menu" :key="item.text" :to="item.link">{{item.text}}</nuxt-link>
       </ul>
     </div>
@@ -71,7 +71,7 @@ export default {
   left: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.7);
-  background: linear-gradient(90deg, #d4fc79 0%, #96e6a1 100%);
+  /* background: linear-gradient(90deg, #d4fc79 0%, #96e6a1 100%); */
 }
 
 .app-menu ul {
@@ -85,7 +85,7 @@ export default {
   font-size: 17px;
   padding: 15px;
   border-radius: 4px;
-  margin: 5;
+  margin: 5px;
   text-decoration: none;
 }
 .app-menu ul a:hover {

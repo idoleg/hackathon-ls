@@ -57,3 +57,11 @@ const aliases = {}
 const commands = []
 
 module.exports = { providers, aceProviders, aliases, commands }
+
+const { ioc } = require('@adonisjs/fold')
+const axios = require('axios');
+
+ioc.singleton('axios', function (app) {
+  const Config = app.use('Config')
+  return axios
+})

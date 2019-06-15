@@ -36,7 +36,7 @@ export default {
     getMarkers() {
       return [{
         id: 1,
-        coords: [54, 39]
+        coords: ['58.54696', '31.265172']
       }, {
         id: 2,
         coords: [26, 52]
