@@ -18,7 +18,10 @@ const Route = use('Route')
 
 Route.resource('/blogs', 'BlogController').apiOnly().formats(['json'])
 Route.get('/', 'IndexController.index').validator('Index')
+
 Route.get('/api/companies', 'CompaniesController.index')
 Route.get('/api/companies/:id/containers', 'CompaniesController.containers')
 Route.get('/api/regions', 'IndexController.regions')
+Route.get('/api/companies/:id/calculateGeo', 'CompaniesController.calculateGeo')
+
 
