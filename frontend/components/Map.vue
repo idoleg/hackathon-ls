@@ -29,18 +29,19 @@ export default {
   mounted() {
     this.isMounted = true;
   },
-  created() {
-    this.markers = this.getMarkers();
+  async created() {
+    //this.markers = await this.getMarkers();
   },
   methods: {
-    getMarkers() {
-      return [{
-        id: 1,
-        coords: [54, 39]
-      }, {
-        id: 2,
-        coords: [26, 52]
-      }];
+    async getMarkers() {
+      let data = await this.$axios.$get(`/api/companies/${tc_ogrn}/containers`);
+      data = data.map((container) => {
+        return {
+          ...container,
+          coords: container.tc_coords.split(' ')
+        };
+      })
+      return data;
     },
     initMap() {
       this.initUserPos();

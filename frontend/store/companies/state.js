@@ -1,6 +1,3 @@
-export default {
-    companies(state) {
-      return state.list
-    }
-  }
-  
+export default () => ({
+    list: []
+})

@@ -1,13 +1,12 @@
 <template>
-  <el-table :data="companies" style="width: 100%" :row-class-name="tableRowClassName">
-    <el-table-column prop="date" label="Date" width="180"></el-table-column>
-    <el-table-column prop="name" label="Name" width="180"></el-table-column>
-    <el-table-column prop="address" label="Address"></el-table-column>
+  <el-table :data="companies" style="width: 100%" :row-class-name="tableRowClassName" @row-dblclick="onRowDblClick">
+    <el-table-column prop="tc_ogrn" label="ОГРН" width="180"></el-table-column>
+    <el-table-column prop="tc_name" label="Компания" width="180"></el-table-column>
+    <el-table-column prop="tc_adress" label="Адрес"></el-table-column>
   </el-table>
 </template>
 
 <script>
-//import axios from 'axios';
 import { mapMutations, mapGetters } from "vuex";
 export default {
   computed: mapGetters({
@@ -29,10 +28,14 @@ export default {
       }
       return "";
     },
+    onRowDblClick(e) {
+      this.$router.push({
+        path: `/companies/${e.tc_ogrn}`
+      });
+    },
     async loadCompanies() {
       let data = await this.$axios.$get("/api/companies");
-      console.log(data);
-      this.$store.commit("setCompanies", data);
+      this.$store.commit("companies/setCompanies", data);
     },
     ...mapMutations({
       toggle: "companies/toggle",
