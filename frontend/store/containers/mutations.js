@@ -14,7 +14,7 @@ export default {
       });
       return {
         type: "Feature",
-        id: 'cont'+container.tc_num,
+        id: "cont" + container.tc_num,
         geometry: {
           type: "Point",
           coordinates: [coords[1], coords[0]],
@@ -22,11 +22,14 @@ export default {
         },
         options: {
           preset: "islands#darkGreenDotIcon"
+        },
+        properties: {
+          type: "container"
         }
         //...container
       };
     });
-    state.containers =  data
+    state.containers = data;
   },
 
   setPoligons(state, poligons) {
@@ -36,7 +39,7 @@ export default {
       });
       return {
         type: "Feature",
-        id: 'pol'+poligon.tc_id,
+        id: "pol" + poligon.tc_id,
         geometry: {
           type: "Point",
           coordinates: [coords[1], coords[0]],
@@ -44,11 +47,14 @@ export default {
         },
         options: {
           preset: "islands#brownDotIcon"
+        },
+        properties: {
+          type: "poligon"
         }
         //...poligon
       };
     });
-    state.poligons =  data
+    state.poligons = data;
   },
 
   setProcessing(state, processing) {
@@ -58,7 +64,7 @@ export default {
       });
       return {
         type: "Feature",
-        id: 'proc'+process.tc_inn,
+        id: "proc" + process.tc_inn,
         geometry: {
           type: "Point",
           coordinates: [coords[1], coords[0]],
@@ -66,10 +72,17 @@ export default {
         },
         options: {
           preset: "islands#violetDotIcon"
+        },
+        properties: {
+          type: "processing"
         }
         //...process
       };
     });
-    state.processing = data
+    state.processing = data;
+  },
+
+  setFilter(state, filter){
+    state.filter = filter;
   }
 };

@@ -16,6 +16,9 @@ export default {
         type: "FeatureCollection",
         features: state.processing
       };
+    },
+    filter(state){
+      return state.filter;
     }
   }
   

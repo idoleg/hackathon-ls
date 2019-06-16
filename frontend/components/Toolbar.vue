@@ -12,10 +12,16 @@
           :value="region.region"
         >{{region.region}}</el-option>
       </el-select>
-    </div> -->
+    </div>-->
     <div class="app-cont__input">
       <p class="app-cont__descr">Выберите регион</p>
-      <el-select v-model="company" placeholder @change="onCompanyChange" size="mini" style="width: 100%;">
+      <el-select
+        v-model="company"
+        placeholder
+        @change="onCompanyChange"
+        size="mini"
+        style="width: 100%;"
+      >
         <el-option
           v-for="company in companies"
           :key="company.tc_ogrn"
@@ -24,9 +30,15 @@
         ></el-option>
       </el-select>
     </div>
-    <el-button size="medium" @click="$root.$emit('changeMap')">
-      Update
-    </el-button>
+    <div class="app-cont__input">
+      <p class="app-cont__descr">Отображение:</p>
+      <el-checkbox-group v-model="filter" @change="onFilterChange">
+        <el-checkbox label="container" checked>Контейнеры</el-checkbox>
+        <el-checkbox label="poligon" checked>Полигоны</el-checkbox>
+        <el-checkbox label="processing" checked>Переработка отходов</el-checkbox>
+      </el-checkbox-group>
+    </div>
+    {{filter}}
   </section>
 </template>
 
@@ -39,6 +51,7 @@ export default {
     return {
       //regions: [],
       //region: "",
+      filter: [],
       companies: [],
       company: {}
     };
@@ -84,19 +97,28 @@ export default {
     async onCompanyChange(e) {
       try {
         console.log(e);
-        let containers = await this.$axios.get(`/api/companies/${e}/containers`);
+        let containers = await this.$axios.get(
+          `/api/companies/${e}/containers`
+        );
         this.$store.commit("containers/setContainers", containers.data);
 
         let poligons = await this.$axios.get(`/api/companies/${e}/poligons`);
         this.$store.commit("containers/setPoligons", poligons.data);
 
-        let processing = await this.$axios.get(`/api/companies/${e}/processing`);
+        let processing = await this.$axios.get(
+          `/api/companies/${e}/processing`
+        );
         this.$store.commit("containers/setProcessing", processing.data);
 
-        this.$root.$emit('changeMap')
+        this.$root.$emit("changeMap");
       } catch (err) {
         console.log(err);
       }
+    },
+    onFilterChange(){
+      console.log(this.filter)
+      this.$store.commit('containers/setFilter', this.filter);
+       this.$root.$emit("changeMapFilter");
     }
   }
 };
