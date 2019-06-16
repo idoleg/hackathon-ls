@@ -10,8 +10,8 @@
             <el-input v-model="newObject.tc_name"></el-input>
           </el-form-item>
           <el-form-item label="Тип объекта">
-            <el-select v-model="newObject.tc_type" placeholder="">
-              <el-option v-for="type in types" :key="type.id">{{type.name}}</el-option>
+            <el-select v-model="newObject.tc_teh" placeholder="">
+              <el-option v-for="type in types" :key="type.id"  :value="type.id">{{type.name}}</el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="Адрес">
@@ -26,15 +26,16 @@
     <el-row>
       <el-col :span="21" :offset="1">
         <el-table
-          :data="objects.filter(data => !search || data.tc_name.toLowerCase().includes(search.toLowerCase()) || String(data.tc_ogrn).includes(search.toLowerCase()) || data.tc_adress.toLowerCase().includes(search.toLowerCase()) )"
+          :data="objects.filter(data => !search || data.tc_nameko.toLowerCase().includes(search.toLowerCase()) || String(data.tc_ogrn).includes(search.toLowerCase()) || data.tc_adress.toLowerCase().includes(search.toLowerCase()) || data.tc_teh.includes(search) || data.tc_ )"
           style="width: 100%"
           :row-class-name="tableRowClassName"
           @row-dblclick="onRowDblClick"
         >
           <el-table-column prop="tc_ogrn" label="ОГРН ответственной компании" width="180"></el-table-column>
-          <el-table-column prop="tc_name" label="Компания" width="180"></el-table-column>
-          <el-table-column prop="tc_name" label="Наименование объекта" width="180"></el-table-column>
-          <el-table-column prop="tc_name" label="Тип объекта" width="180"></el-table-column>
+          <el-table-column prop="tc_nameko" label="Компания" width="180"></el-table-column>
+          <el-table-column prop="tc_teh" label="Описание объекта" width="180"></el-table-column>
+          <el-table-column prop="tc_othodi" label="Тип отходов" width="180"></el-table-column>
+          <el-table-column prop="tc_class" label="Класс отходов" width="180"></el-table-column>
           <el-table-column prop="tc_adress" label="Адрес"></el-table-column>
           <el-table-column align="right" min-width="150px">
             <template slot="header" slot-scope="scope">
@@ -66,7 +67,7 @@ export default {
     return {
       search: "",
       newObject: {
-        tc_name: "",
+        tc_nameko: "",
         tc_ogrn: "",
         tc_adress: ""
       },
