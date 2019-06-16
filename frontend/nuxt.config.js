@@ -19,7 +19,7 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     ['@nuxtjs/axios', {
-      baseURL: 'http://127.0.0.1:3333'
+      baseURL: 'http://back.mbbaby.ru/' //http://127.0.0.1:3333'
     }],
     ['vue-yandex-maps/nuxt', {
       apiKey: 'e713c06f-097d-4de1-9547-59177e5d2157'
