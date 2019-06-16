@@ -34,7 +34,9 @@ export default {
     Toolbar
   },
   computed: mapGetters({
-    containers: "containers/containers"
+    containers: "containers/containers",
+    processing: "containers/processing",
+    poligons: "containers/poligons",
   }),
   data() {
     return {
@@ -93,12 +95,14 @@ export default {
       this.objectManager.removeAll()
       
 
-      this.objectManager.objects.options.set("preset", "islands#greenDotIcon");
+      //this.objectManager.objects.options.set("preset", "islands#redDotIcon");
       this.objectManager.clusters.options.set("preset", "islands#greenClusterIcons");
       this.ymap.geoObjects.add(this.objectManager);
       console.log(this.containers);
       // Размещение геообъекта на карте.
       this.objectManager.add(this.containers);
+      this.objectManager.add(this.poligons);
+      this.objectManager.add(this.processing);
     }
   }
 };

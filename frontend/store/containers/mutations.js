@@ -7,23 +7,69 @@ export default {
   },
 
   setContainers(state, containers) {
+    console.log(containers);
     let data = containers.map(container => {
       const coords = container.tc_coord.split(" ").map(coord => {
         return parseFloat(coord);
       });
       return {
         type: "Feature",
-        id: container.tc_num,
+        id: 'cont'+container.tc_num,
         geometry: {
           type: "Point",
-          coordinates: [coords[1], coords[0]]
+          coordinates: [coords[1], coords[0]],
+          iconColor: "#93278F"
+        },
+        options: {
+          preset: "islands#darkGreenDotIcon"
         }
         //...container
       };
     });
-    state.list = {
-      type: "FeatureCollection",
-      features: data
-    };
+    state.containers =  data
+  },
+
+  setPoligons(state, poligons) {
+    let data = poligons.map(poligon => {
+      const coords = poligon.tc_coord.split(" ").map(coord => {
+        return parseFloat(coord);
+      });
+      return {
+        type: "Feature",
+        id: 'pol'+poligon.tc_id,
+        geometry: {
+          type: "Point",
+          coordinates: [coords[1], coords[0]],
+          iconColor: "#93278F"
+        },
+        options: {
+          preset: "islands#brownDotIcon"
+        }
+        //...poligon
+      };
+    });
+    state.poligons =  data
+  },
+
+  setProcessing(state, processing) {
+    let data = processing.map(process => {
+      const coords = process.tc_coord.split(" ").map(coord => {
+        return parseFloat(coord);
+      });
+      return {
+        type: "Feature",
+        id: 'proc'+process.tc_inn,
+        geometry: {
+          type: "Point",
+          coordinates: [coords[1], coords[0]],
+          iconColor: "#93278F"
+        },
+        options: {
+          preset: "islands#violetDotIcon"
+        }
+        //...process
+      };
+    });
+    state.processing = data
   }
 };

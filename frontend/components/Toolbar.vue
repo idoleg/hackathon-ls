@@ -14,7 +14,7 @@
       </el-select>
     </div> -->
     <div class="app-cont__input">
-      <p class="app-cont__descr">Выберите компанию</p>
+      <p class="app-cont__descr">Выберите регион</p>
       <el-select v-model="company" placeholder @change="onCompanyChange" size="mini" style="width: 100%;">
         <el-option
           v-for="company in companies"
@@ -84,8 +84,15 @@ export default {
     async onCompanyChange(e) {
       try {
         console.log(e);
-        let { data } = await this.$axios.get(`/api/companies/${e}/containers`);
-        this.$store.commit("containers/setContainers", data);
+        let containers = await this.$axios.get(`/api/companies/${e}/containers`);
+        this.$store.commit("containers/setContainers", containers.data);
+
+        let poligons = await this.$axios.get(`/api/companies/${e}/poligons`);
+        this.$store.commit("containers/setPoligons", poligons.data);
+
+        let processing = await this.$axios.get(`/api/companies/${e}/processing`);
+        this.$store.commit("containers/setProcessing", processing.data);
+
         this.$root.$emit('changeMap')
       } catch (err) {
         console.log(err);

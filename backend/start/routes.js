@@ -21,7 +21,9 @@ Route.get('/', 'IndexController.index').validator('Index')
 
 Route.get('/api/companies', 'CompaniesController.index')
 Route.get('/api/companies/:id/containers', 'CompaniesController.containers')
+Route.get('/api/companies/:id/poligons', 'CompaniesController.poligons')
+Route.get('/api/companies/:id/processing', 'CompaniesController.processing')
 Route.get('/api/regions', 'IndexController.regions')
-Route.get('/api/companies/:id/calculateGeo', 'CompaniesController.calculateGeo')
+Route.get('/api/companies/:id/calculateGeo', 'CompaniesController.calculateGeoForProcessing')
 
 
