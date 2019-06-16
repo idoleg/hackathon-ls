@@ -95,7 +95,7 @@ export default {
       });
       return {
         type: "Feature",
-        id: "nezak" + nezak.tc_inn,
+        id: "nezak" + nezak.tc_num,
         geometry: {
           type: "Point",
           coordinates: [coords[1], coords[0]],
