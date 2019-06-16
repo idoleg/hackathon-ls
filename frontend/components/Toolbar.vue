@@ -38,7 +38,7 @@
         <el-checkbox label="processing" checked>Переработка отходов</el-checkbox>
       </el-checkbox-group>
     </div>
-    {{filter}}
+    
   </section>
 </template>
 
@@ -110,15 +110,16 @@ export default {
         );
         this.$store.commit("containers/setProcessing", processing.data);
 
+        this.$store.commit("containers/setFilter", this.filter);
         this.$root.$emit("changeMap");
       } catch (err) {
         console.log(err);
       }
     },
-    onFilterChange(){
-      console.log(this.filter)
-      this.$store.commit('containers/setFilter', this.filter);
-       this.$root.$emit("changeMapFilter");
+    onFilterChange() {
+      console.log(this.filter);
+      this.$store.commit("containers/setFilter", this.filter);
+      this.$root.$emit("changeMapFilter");
     }
   }
 };
