@@ -1,65 +1,52 @@
 <template>
-  <section class="container">
-    <div>
-      <app-logo/>
-      <h1 class="title">
-        frontend
-      </h1>
-      <h2 class="subtitle">
-        Привет! Это фронтенд для проекта создоваемого на хакатоне.
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
-      </div>
+  <div>
+    <div class="app-site-headaer">
+      <Menu>
+      </Menu>
     </div>
-  </section>
+    <el-tabs type="card">
+    <el-tab-pane label="Реестр компаний - региональных операторов">
+      <Companies />
+    </el-tab-pane>
+    <el-tab-pane label="Реестр объектов обработки, размещения, обезвреживания и утилизации отходов">
+      <Objects />
+    </el-tab-pane>
+    <el-tab-pane label="Банк данных об отходах">
+
+    </el-tab-pane>
+    <el-tab-pane label="Банк данных о технологиях утилизации и обезвреживания отходов"></el-tab-pane>
+  </el-tabs>
+  </div>
 </template>
 
 <script>
-import AppLogo from '~/components/AppLogo.vue'
-
+import Companies from '../components/Companies';
+import Objects from '../components/Objects';
+import Menu from '../components/Menu';
 export default {
   components: {
-    AppLogo
+    Companies,
+    Objects,
+    Menu
+  },
+  head() {
+      return {
+          title: 'Единый реестр',
+          meta: [
+              {
+                  hid: 'desc',
+                  name: 'desc',
+                  content: 'Здесь вы сможете найти всё'
+              }
+          ]
+      }
   }
-}
+};
 </script>
 
 <style>
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+.app-site-headaer{
+  margin-bottom: 30px;
 }
 </style>
 

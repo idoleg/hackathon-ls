@@ -18,7 +18,9 @@ module.exports = {
   ],
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
+    ['@nuxtjs/axios', {
+      baseURL: 'http://back.mbbaby.ru/' //http://127.0.0.1:3333'
+    }],
     ['vue-yandex-maps/nuxt', {
       apiKey: 'e713c06f-097d-4de1-9547-59177e5d2157'
     }]
@@ -32,7 +34,7 @@ module.exports = {
   },
 
   proxy: {
-    '/api/': 'http://localhost:3000'
+    '/api/': 'http://127.0.0.1:3333'
   },
   /*
   ** Customize the progress bar color
