@@ -22,7 +22,7 @@ class CompaniesController {
 
     async containers({ request, params }) {
         
-        let data = await Database.table('tb_oper_obejct').select('*').where('tc_ogrn', '=', params.id).limit(100);
+        let data = await Database.table('tb_oper_obejct').select('*').where('tc_ogrn', '=', params.id).limit(874);
         return data;
     }
 

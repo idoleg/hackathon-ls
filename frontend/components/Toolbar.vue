@@ -92,6 +92,7 @@
       :visible.sync="dialogStatVisible"
       width="50%"
     >
+    <img src="/stat-clasters.jpg" style="width:100%;"/>
     <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="dialogStatVisible = false">Закрыть</el-button>
       </span>
