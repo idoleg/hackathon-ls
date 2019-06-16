@@ -27,11 +27,11 @@ export default {
       isOpen: false,
       menu: [
           {
-              text: "Main page",
+              text: "Федеральный единый реестр",
               link: "/"
           },
           {
-              text: "Map",
+              text: "Интерактивная карта",
               link: "/map"
           }
       ]

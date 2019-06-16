@@ -62,7 +62,7 @@
       <p>{{stat.containers}} контейнеров</p>
       <p>{{stat.poligons}} полигонов</p>
       <p>{{stat.processing}} заводов, переабатывающих отходы</p>
-      <p>{{stat.nezakon}} незаконных сваловк</p>
+      <p>{{stat.nezakon}} незаконных свалок</p>
     </div>
 
     <el-dialog
@@ -70,7 +70,7 @@
       :visible.sync="dialogNezakonVisible"
       width="50%"
     >
-      <strong>Вы можете сообщить нам о незаконной свалке</strong>
+      <strong>Вы можете сообщить нам о незаконной свалке для того, чтобы наша система<br> автоматически подготовила и отправила уведомление в контролирующий<br> орган вашего региона.</strong>
       <el-form ref="form" :model="nezakonForm" label-width="120px" label-position="top">
         <el-form-item label="Адрес незаконной свалки">
           <el-input v-model="nezakonForm.tc_area"></el-input>
@@ -84,6 +84,16 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogNezakonVisible = false">Отменить</el-button>
         <el-button type="primary" @click="dialogNezakonVisible = false">Отправить заявку</el-button>
+      </span>
+    </el-dialog>
+
+    <el-dialog
+      title="Аналитика региона"
+      :visible.sync="dialogStatVisible"
+      width="50%"
+    >
+    <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogStatVisible = false">Закрыть</el-button>
       </span>
     </el-dialog>
   </section>
