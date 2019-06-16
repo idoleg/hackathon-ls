@@ -28,6 +28,18 @@ export default {
     Companies,
     Objects,
     Menu
+  },
+  head() {
+      return {
+          title: 'Единый реестр',
+          meta: [
+              {
+                  hid: 'desc',
+                  name: 'desc',
+                  content: 'Здесь вы сможете найти всё'
+              }
+          ]
+      }
   }
 };
 </script>

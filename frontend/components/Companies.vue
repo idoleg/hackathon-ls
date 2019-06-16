@@ -127,9 +127,9 @@ export default {
     },
     async handleCreateNew() {
       try {
-        await this.$axios.post("/api/companies", {
-          ...this.newCompany
-        });
+        //await this.$axios.post("/api/companies", {
+        //  ...this.newCompany
+        //});
         this.$store.commit("companies/add", this.newCompany);
       } catch (err) {
         this.$message({
