@@ -1,6 +1,7 @@
 <template>
   <div class="app-header">
-    <h2 class="app-header__title">Логистика и ТБО</h2>
+    <img src="/logo-ico.png" class="app-header-logo"/>
+    <h2 class="app-header__title">GarbageCollector</h2>
     <div class="app-header__menu">
       <el-tooltip :content="isOpen? 'Close menu':'Menu'" placement="bottom" effect="light">
         <el-button circle size="medium" @click="toggle">
@@ -10,7 +11,7 @@
     </div>
 
     <div class="app-menu" v-if="isOpen">
-      <h3 class="app-menu__title">Логистика и ТБО</h3>
+      <h3 class="app-menu__title">GarbageCollector</h3>
 
       <ul  @click.capture="toggle">
         <nuxt-link v-for="item in menu" :key="item.text" :to="item.link">{{item.text}}</nuxt-link>
@@ -50,7 +51,7 @@ export default {
   width: 100%;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   padding: 5px;
-  align-items: stretch;
+  align-items: center;
 }
 .app-header__menu {
   align-self: end;
@@ -62,6 +63,10 @@ export default {
   width: 100%;
   font-size: 20px;
   line-height: 36px;
+}
+
+.app-header-logo{
+  margin-right: 5px;
 }
 
 .app-menu {

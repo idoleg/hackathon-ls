@@ -48,6 +48,15 @@
         @click="dialogNezakonVisible = true"
       >Сообщить о незаконной свалке</el-button>
     </div>
+    <div class="app-cont__input">
+      <el-button
+        type="primary"
+        round
+        icon="el-icon-picture-outline-round"
+        size="mini"
+        @click="dialogStatVisible = true"
+      >Получить  аналитику по региону</el-button>
+    </div>
     <div class="app-cont__input app-cont__stat">
       <p class="app-cont__descr">Статистика по выбранному региону:</p>
       <p>{{stat.containers}} контейнеров</p>
@@ -65,6 +74,7 @@
       <el-form ref="form" :model="nezakonForm" label-width="120px" label-position="top">
         <el-form-item label="Адрес незаконной свалки">
           <el-input v-model="nezakonForm.tc_area"></el-input>
+          <el-button type="primary" icon="el-icon-map-location" round size="mini">Указать на карте</el-button>
         </el-form-item>
         <el-form-item label="Подробное описание местоположения">
           <el-input type="textarea" v-model="nezakonForm.tc_place"></el-input>
@@ -72,8 +82,8 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogNezakonVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="dialogNezakonVisible = false">Confirm</el-button>
+        <el-button @click="dialogNezakonVisible = false">Отменить</el-button>
+        <el-button type="primary" @click="dialogNezakonVisible = false">Отправить заявку</el-button>
       </span>
     </el-dialog>
   </section>
@@ -96,6 +106,7 @@ export default {
       },
       nezakonForm: {},
       dialogNezakonVisible: false,
+      dialogStatVisible: false,
       filter: [],
       companies: [],
       company: {}

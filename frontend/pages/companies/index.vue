@@ -1,17 +1,29 @@
 <template>
-  <el-table :data="companies" style="width: 100%" :row-class-name="tableRowClassName" @row-dblclick="onRowDblClick">
-    <el-table-column prop="tc_ogrn" label="ОГРН" width="180"></el-table-column>
-    <el-table-column prop="tc_name" label="Компания" width="180"></el-table-column>
-    <el-table-column prop="tc_adress" label="Адрес"></el-table-column>
-  </el-table>
+  <section class="app-cont">
+    <div class="app-cont__row">
+      <Menu></Menu>
+    </div>
+    <el-table
+      :data="companies"
+      style="width: 100%"
+      :row-class-name="tableRowClassName"
+      @row-dblclick="onRowDblClick"
+    >
+      <el-table-column prop="tc_ogrn" label="ОГРН" width="180"></el-table-column>
+      <el-table-column prop="tc_name" label="Компания" width="180"></el-table-column>
+      <el-table-column prop="tc_adress" label="Адрес"></el-table-column>
+    </el-table>
+  </section>
 </template>
 
 <script>
+import Menu from "@/components/Menu";
 import { mapMutations, mapGetters } from "vuex";
 export default {
   computed: mapGetters({
     companies: "companies/companies"
   }),
+  components: { Menu },
   methods: {
     addCompany(e) {
       const text = e.target.value;
