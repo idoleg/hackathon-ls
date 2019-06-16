@@ -23,5 +23,6 @@ Route.get('/api/companies', 'CompaniesController.index')
 Route.get('/api/companies/:id/containers', 'CompaniesController.containers')
 Route.get('/api/regions', 'IndexController.regions')
 Route.get('/api/companies/:id/calculateGeo', 'CompaniesController.calculateGeo')
-
+Route.get('/api/objects', 'ObjectsController.index')
+Route.post('/api/objects', 'ObjectsController.add')
 
