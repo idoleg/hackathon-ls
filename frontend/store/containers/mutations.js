@@ -24,6 +24,8 @@ export default {
           preset: "islands#darkGreenDotIcon"
         },
         properties: {
+          balloonContentHeader: "Контейнер №" + container.tc_num,
+          balloonContentBody: `<p><strong>Адрес:</strong> ${container.tc_adress}</p><p><strong>Управляющая орг.:</strong> ${container.tc_namorg}</p><p><strong>Количество контейнеров:</strong> ${container.tc_kont}</p><p><strong>Периодичность вывоза:</strong> ${container.tc_vvz}</p>`,
           type: "container"
         }
         //...container
@@ -49,6 +51,8 @@ export default {
           preset: "islands#brownDotIcon"
         },
         properties: {
+          balloonContentHeader: "Полигон №" + poligon.tc_id,
+          balloonContentBody: `<p><strong>Адресс:</strong> ${poligon.tc_adress}</p><p><strong>Организация:</strong> ${poligon.tc_nameko}</p><p><strong>Номер лицензии:</strong> ${poligon.tc_numlic}</p><p><strong>Виды захораниваемых отходов:</strong> ${poligon.tc_vid}</p><p><strong>Наименование объекта:</strong> ${poligon.tc_obj}</p>`,
           type: "poligon"
         }
         //...poligon
@@ -74,6 +78,8 @@ export default {
           preset: "islands#violetDotIcon"
         },
         properties: {
+          balloonContentHeader: "Перерабатывающий завод №" + process.tc_inn,
+          balloonContentBody: `<p><strong>Адресс:</strong> ${process.tc_adress}</p><p><strong>Организация:</strong> ${process.tc_nameko}</p><p><strong>Возможности:</strong> ${process.tc_teh}</p><p><strong>Назначение:</strong> ${process.tc_nazn}</p><p><strong>Получаемые отходы:</strong> ${process.tc_othodi}</p><p><strong>Класс отходов:</strong> ${process.tc_class}</p>`,
           type: "processing"
         }
         //...process
@@ -82,7 +88,7 @@ export default {
     state.processing = data;
   },
 
-  setFilter(state, filter){
+  setFilter(state, filter) {
     state.filter = filter;
   }
 };
