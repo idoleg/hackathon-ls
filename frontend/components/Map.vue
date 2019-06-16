@@ -37,6 +37,7 @@ export default {
     containers: "containers/containers",
     processing: "containers/processing",
     poligons: "containers/poligons",
+    nezakon: "containers/nezakon",
     filter: "containers/filter"
   }),
   data() {
@@ -107,6 +108,7 @@ export default {
       this.objectManager.add(this.containers);
       this.objectManager.add(this.poligons);
       this.objectManager.add(this.processing);
+      this.objectManager.add(this.nezakon);
 
       this.changeMapFilter();
     },

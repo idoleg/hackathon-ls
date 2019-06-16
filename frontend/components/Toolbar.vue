@@ -36,6 +36,7 @@
         <el-checkbox label="container" checked>Контейнеры</el-checkbox>
         <el-checkbox label="poligon" checked>Полигоны</el-checkbox>
         <el-checkbox label="processing" checked>Переработка отходов</el-checkbox>
+        <el-checkbox label="nezakon" checked>Незаконные свалки</el-checkbox>
       </el-checkbox-group>
     </div>
     
@@ -109,6 +110,11 @@ export default {
           `/api/companies/${e}/processing`
         );
         this.$store.commit("containers/setProcessing", processing.data);
+
+        let nezakon = await this.$axios.get(
+          `/api/companies/${e}/nezakon`
+        );
+        this.$store.commit("containers/setNezakon", nezakon.data);
 
         this.$store.commit("containers/setFilter", this.filter);
         this.$root.$emit("changeMap");

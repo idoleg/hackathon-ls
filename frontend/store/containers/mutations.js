@@ -88,6 +88,34 @@ export default {
     state.processing = data;
   },
 
+  setNezakon(state, nezakon) {
+    let data = nezakon.map(nezak => {
+      const coords = nezak.tc_coord.split(" ").map(coord => {
+        return parseFloat(coord);
+      });
+      return {
+        type: "Feature",
+        id: "nezak" + nezak.tc_inn,
+        geometry: {
+          type: "Point",
+          coordinates: [coords[1], coords[0]],
+          iconColor: "#93278F"
+        },
+        options: {
+          preset: "islands#redDotIcon"
+        },
+        properties: {
+          balloonContentHeader: "Незаконная свалка №" + nezak.tc_num,
+          balloonContentBody: `<p><strong>Адрес:</strong> ${nezak.tc_area}</p><p><strong>Местоположение:</strong> ${nezak.tc_place}</p>`,
+          type: "nezakon"
+        }
+        //...process
+      };
+    });
+    state.nezakon = data;
+  },
+
+
   setFilter(state, filter) {
     state.filter = filter;
   }

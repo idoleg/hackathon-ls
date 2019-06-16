@@ -17,6 +17,12 @@ export default {
         features: state.processing
       };
     },
+    nezakon(state) {
+      return {
+        type: "FeatureCollection",
+        features: state.nezakon
+      };
+    },
     filter(state){
       return state.filter;
     }

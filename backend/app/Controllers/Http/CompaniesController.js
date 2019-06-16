@@ -37,6 +37,12 @@ class CompaniesController {
         return data;
     }
 
+    async nezakon({ request, params }) {
+        
+        let data = await Database.table('tb_nezakon').select('*').where('tc_ogrn', '=', params.id).limit(100);
+        return data;
+    }
+
     async calculateGeoForContainers ({ request, params }) {
         const token = use('Config').get('app.ymapToken')
         const oper = await Database.table('tb_oper').where('tc_ogrn', '=', params.id);
@@ -87,6 +93,24 @@ class CompaniesController {
             data = data[0];
             const cord = await this.getCoord(region+',' + data.tc_adress, token  );
             const res = await Database.table('tb_poligon').whereRaw('tc_ogrn = ? AND tc_id = ?', [params.id, data.tc_id]).update('tc_coord', cord)
+            console.log(i);
+        }
+    }
+
+    async calculateGeoForNezakon({ request, params }) {
+        const token = use('Config').get('app.ymapToken')
+        const oper = await Database.table('tb_oper').where('tc_ogrn', '=', params.id);
+        const region = oper[0].tc_region; 
+        //3707
+
+        const queryCount= await Database.from('tb_nezakon').where('tc_ogrn', '=', params.id).count() //.whereNull('tc_coord')
+        const count = queryCount[0]['count(*)']
+        //return count;
+        for(let i = 1; i <=count; i++){
+            let data = await Database.table('tb_nezakon').select('*').where('tc_ogrn', '=', params.id).forPage(i,1);
+            data = data[0];
+            const cord = await this.getCoord(data.tc_area, token  );
+            const res = await Database.table('tb_nezakon').whereRaw('tc_ogrn = ? AND tc_num = ?', [params.id, data.tc_num]).update('tc_coord', cord)
             console.log(i);
         }
     }
