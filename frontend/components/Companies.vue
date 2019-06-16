@@ -111,7 +111,7 @@ export default {
         type: "warning"
       })
         .then(async () => {
-          await this.$axios.delete(`/api/companies/${row.tc_ogrn}`);
+          //await this.$axios.delete(`/api/companies/${row.tc_ogrn}`);
           this.$store.commit("companies/delete");
           this.$message({
             type: "success",
