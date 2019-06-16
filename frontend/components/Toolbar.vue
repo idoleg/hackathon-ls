@@ -12,10 +12,16 @@
           :value="region.region"
         >{{region.region}}</el-option>
       </el-select>
-    </div> -->
+    </div>-->
     <div class="app-cont__input">
-      <p class="app-cont__descr">Выберите компанию</p>
-      <el-select v-model="company" placeholder @change="onCompanyChange" size="mini" style="width: 100%;">
+      <p class="app-cont__descr">Выберите регион</p>
+      <el-select
+        v-model="company"
+        placeholder
+        @change="onCompanyChange"
+        size="mini"
+        style="width: 100%;"
+      >
         <el-option
           v-for="company in companies"
           :key="company.tc_ogrn"
@@ -24,9 +30,52 @@
         ></el-option>
       </el-select>
     </div>
-    <el-button size="medium" @click="$root.$emit('changeMap')">
-      Update
-    </el-button>
+    <div class="app-cont__input">
+      <p class="app-cont__descr">Отображение:</p>
+      <el-checkbox-group v-model="filter" @change="onFilterChange">
+        <el-checkbox label="container" checked>Контейнеры</el-checkbox>
+        <el-checkbox label="poligon" checked>Полигоны</el-checkbox>
+        <el-checkbox label="processing" checked>Переработка отходов</el-checkbox>
+        <el-checkbox label="nezakon" checked>Незаконные свалки</el-checkbox>
+      </el-checkbox-group>
+    </div>
+    <div class="app-cont__input">
+      <el-button
+        type="danger"
+        round
+        icon="el-icon-edit"
+        size="mini"
+        @click="dialogNezakonVisible = true"
+      >Сообщить о незаконной свалке</el-button>
+    </div>
+    <div class="app-cont__input app-cont__stat">
+      <p class="app-cont__descr">Статистика по выбранному региону:</p>
+      <p>{{stat.containers}} контейнеров</p>
+      <p>{{stat.poligons}} полигонов</p>
+      <p>{{stat.processing}} заводов, переабатывающих отходы</p>
+      <p>{{stat.nezakon}} незаконных сваловк</p>
+    </div>
+
+    <el-dialog
+      title="Сообщить о незаконной свалке"
+      :visible.sync="dialogNezakonVisible"
+      width="50%"
+    >
+      <strong>Вы можете сообщить нам о незаконной свалке</strong>
+      <el-form ref="form" :model="nezakonForm" label-width="120px" label-position="top">
+        <el-form-item label="Адрес незаконной свалки">
+          <el-input v-model="nezakonForm.tc_area"></el-input>
+        </el-form-item>
+        <el-form-item label="Подробное описание местоположения">
+          <el-input type="textarea" v-model="nezakonForm.tc_place"></el-input>
+          <el-button type="success" icon="el-icon-document-add" round size="mini">Добавить фото</el-button>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogNezakonVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="dialogNezakonVisible = false">Confirm</el-button>
+      </span>
+    </el-dialog>
   </section>
 </template>
 
@@ -39,6 +88,15 @@ export default {
     return {
       //regions: [],
       //region: "",
+      stat: {
+        containers: 0,
+        poligons: 0,
+        processing: 0,
+        nezakon: 0
+      },
+      nezakonForm: {},
+      dialogNezakonVisible: false,
+      filter: [],
       companies: [],
       company: {}
     };
@@ -84,12 +142,36 @@ export default {
     async onCompanyChange(e) {
       try {
         console.log(e);
-        let { data } = await this.$axios.get(`/api/companies/${e}/containers`);
-        this.$store.commit("containers/setContainers", data);
-        this.$root.$emit('changeMap')
+        let containers = await this.$axios.get(
+          `/api/companies/${e}/containers`
+        );
+        this.$store.commit("containers/setContainers", containers.data);
+        this.stat.containers = containers.data.length;
+
+        let poligons = await this.$axios.get(`/api/companies/${e}/poligons`);
+        this.$store.commit("containers/setPoligons", poligons.data);
+        this.stat.poligons = poligons.data.length;
+
+        let processing = await this.$axios.get(
+          `/api/companies/${e}/processing`
+        );
+        this.$store.commit("containers/setProcessing", processing.data);
+        this.stat.processing = processing.data.length;
+
+        let nezakon = await this.$axios.get(`/api/companies/${e}/nezakon`);
+        this.$store.commit("containers/setNezakon", nezakon.data);
+        this.stat.nezakon = nezakon.data.length;
+
+        this.$store.commit("containers/setFilter", this.filter);
+        this.$root.$emit("changeMap");
       } catch (err) {
         console.log(err);
       }
+    },
+    onFilterChange() {
+      console.log(this.filter);
+      this.$store.commit("containers/setFilter", this.filter);
+      this.$root.$emit("changeMapFilter");
     }
   }
 };
@@ -106,5 +188,10 @@ export default {
 .app-cont__descr {
   font-size: 12px;
   font-weight: 600;
+}
+
+.app-cont__stat{
+  margin-top: 50px;
+  font-size: 14px;
 }
 </style>

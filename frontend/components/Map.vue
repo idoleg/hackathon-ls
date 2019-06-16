@@ -34,7 +34,11 @@ export default {
     Toolbar
   },
   computed: mapGetters({
-    containers: "containers/containers"
+    containers: "containers/containers",
+    processing: "containers/processing",
+    poligons: "containers/poligons",
+    nezakon: "containers/nezakon",
+    filter: "containers/filter"
   }),
   data() {
     return {
@@ -50,6 +54,7 @@ export default {
   async created() {
     //this.markers = await this.getMarkers();
     this.$root.$on("changeMap", this.changeMap);
+    this.$root.$on("changeMapFilter", this.changeMapFilter);
   },
   methods: {
     async getMarkers() {
@@ -86,19 +91,31 @@ export default {
     },
     changeMap() {
       if (!this.ymap || !ymaps) {
-        console.warn('@changeMap: ymap or ymaps not init')
+        console.warn("@changeMap: ymap or ymaps not init");
         return;
-      };
+      }
 
-      this.objectManager.removeAll()
-      
+      this.objectManager.removeAll();
 
-      this.objectManager.objects.options.set("preset", "islands#greenDotIcon");
-      this.objectManager.clusters.options.set("preset", "islands#greenClusterIcons");
+      //this.objectManager.objects.options.set("preset", "islands#redDotIcon");
+      this.objectManager.clusters.options.set(
+        "preset",
+        "islands#greenClusterIcons"
+      );
       this.ymap.geoObjects.add(this.objectManager);
       console.log(this.containers);
       // Размещение геообъекта на карте.
       this.objectManager.add(this.containers);
+      this.objectManager.add(this.poligons);
+      this.objectManager.add(this.processing);
+      this.objectManager.add(this.nezakon);
+
+      this.changeMapFilter();
+    },
+    changeMapFilter() {
+      this.objectManager.setFilter((object)=> {
+        return this.filter.includes(object.properties.type);
+      });
     }
   }
 };
