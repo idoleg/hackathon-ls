@@ -3,7 +3,7 @@
     <img src="/logo-ico.png" class="app-header-logo"/>
     <h2 class="app-header__title">GarbageCollector</h2>
     <div class="app-header__menu">
-      <el-tooltip :content="isOpen? 'Close menu':'Menu'" placement="bottom" effect="light">
+      <el-tooltip :content="isOpen? 'Закрыть':'Меню'" placement="bottom" effect="light">
         <el-button circle size="medium" @click="toggle">
           <i :class="isOpen? 'el-icon-close' : 'el-icon-more-outline'"></i>
         </el-button>

@@ -1,27 +1,18 @@
 <template>
-  <div>
-    <!-- <AppHeader /> -->
-    <nuxt/>
+  <div class="main">
+    <Header />
+    <nuxt />
+    <Footer />
   </div>
 </template>
 
 <script>
-import AppHeader from '../components/AppHeader';
-
+import Header from "~/components/Header.vue";
+import Footer from "~/components/Footer.vue";
 export default {
   components: {
-    AppHeader
+    Header,
+    Footer
   }
-}
+};
 </script>
-
-<style>
-@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
-*{
-  font-family: 'Montserrat', sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-</style>
-

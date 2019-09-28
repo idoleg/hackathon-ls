@@ -1,28 +1,26 @@
 <template>
   <el-container v-if="isMounted">
-    <!-- <el-row> -->
-    <el-col :span="16">
-      <yandex-map
-        :coords="currentPos"
-        @map-was-initialized="initMap"
-        class="hybrid"
-        zoom="10"
-        :controls="['geolocationControl']"
-      >
-        <ymap-marker
-          v-for="container in containers.list"
-          :key="container.tc_num"
-          markerId="123"
-          marker-type="placemark"
-          hint-content="element.hint"
-          :coords="container.coords"
-        ></ymap-marker>
-      </yandex-map>
-    </el-col>
-    <el-col :span="8">
-      <Toolbar/>
-    </el-col>
-    <!-- </el-row >     -->
+    <el-collapse>
+      <el-collapse-item>
+        <Toolbar />
+      </el-collapse-item>
+    </el-collapse>
+    <yandex-map
+      :coords="currentPos"
+      @map-was-initialized="initMap"
+      class="hybrid"
+      zoom="10"
+      :controls="['geolocationControl']"
+    >
+      <ymap-marker
+        v-for="container in containers.list"
+        :key="container.tc_num"
+        markerId="123"
+        marker-type="placemark"
+        hint-content="element.hint"
+        :coords="container.coords"
+      ></ymap-marker>
+    </yandex-map>
   </el-container>
 </template>
 
@@ -45,7 +43,8 @@ export default {
       isMounted: false,
       currentPos: [54, 39],
       markers: [],
-      ymap: {}
+      ymap: {},
+      filterHidden: false
     };
   },
   mounted() {
@@ -113,7 +112,7 @@ export default {
       this.changeMapFilter();
     },
     changeMapFilter() {
-      this.objectManager.setFilter((object)=> {
+      this.objectManager.setFilter(object => {
         return this.filter.includes(object.properties.type);
       });
     }

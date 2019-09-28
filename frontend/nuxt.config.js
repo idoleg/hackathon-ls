@@ -23,8 +23,15 @@ module.exports = {
     }],
     ['vue-yandex-maps/nuxt', {
       apiKey: 'e713c06f-097d-4de1-9547-59177e5d2157'
-    }]
+    }]//,
+    //'@nuxtjs/pwa'
   ],
+  //pwa: {
+  //  manifest: {
+  //    name: 'GarbageCollector',
+  //    lang: 'fa'
+  //  }
+  //},
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
@@ -35,6 +42,10 @@ module.exports = {
 
   proxy: {
     '/api/': 'http://127.0.0.1:3333'
+  },
+  server: {
+    port: 3000, // default: 3000
+    host: '0.0.0.0', // default: localhost
   },
   /*
   ** Customize the progress bar color

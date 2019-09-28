@@ -1,0 +1,44 @@
+<template>
+  <div>
+    <el-tabs type="card">
+    <el-tab-pane label="Реестр компаний - региональных операторов">
+      <Companies />
+    </el-tab-pane>
+    <el-tab-pane label="Реестр объектов обработки, размещения, обезвреживания и утилизации отходов">
+      <Objects />
+    </el-tab-pane>
+  </el-tabs>
+  </div>
+</template>
+
+<script>
+import Companies from '../components/Companies';
+import Objects from '../components/Objects';
+import Menu from '../components/Menu';
+export default {
+  components: {
+    Companies,
+    Objects,
+    Menu
+  },
+  head() {
+      return {
+          title: 'Единый реестр',
+          meta: [
+              {
+                  hid: 'desc',
+                  name: 'desc',
+                  content: 'Здесь вы сможете найти всё'
+              }
+          ]
+      }
+  }
+};
+</script>
+
+<style>
+.app-site-header{
+  margin-bottom: 30px;
+}
+</style>
+

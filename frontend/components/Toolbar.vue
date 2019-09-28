@@ -1,18 +1,5 @@
 <template>
-  <section class="app-cont">
-    <div class="app-cont__row">
-      <Menu></Menu>
-    </div>
-    <!-- <div class="app-cont__input">
-      <p class="app-cont__descr">Выберите регион</p>
-      <el-select v-model="region" placeholder @change="onRegionChange" size="mini">
-        <el-option
-          v-for="region in regions"
-          :key="region.region"
-          :value="region.region"
-        >{{region.region}}</el-option>
-      </el-select>
-    </div>-->
+  <div class="app-cont">
     <div class="app-cont__input">
       <p class="app-cont__descr">Выберите регион</p>
       <el-select
@@ -55,7 +42,7 @@
         icon="el-icon-picture-outline-round"
         size="mini"
         @click="dialogStatVisible = true"
-      >Получить  аналитику по региону</el-button>
+      >Получить аналитику по региону</el-button>
     </div>
     <div class="app-cont__input app-cont__stat">
       <p class="app-cont__descr">Статистика по выбранному региону:</p>
@@ -70,7 +57,11 @@
       :visible.sync="dialogNezakonVisible"
       width="50%"
     >
-      <strong>Вы можете сообщить нам о незаконной свалке для того, чтобы наша система<br> автоматически подготовила и отправила уведомление в контролирующий<br> орган вашего региона.</strong>
+      <strong>
+        Вы можете сообщить нам о незаконной свалке для того, чтобы наша система
+        <br />автоматически подготовила и отправила уведомление в контролирующий
+        <br />орган вашего региона.
+      </strong>
       <el-form ref="form" :model="nezakonForm" label-width="120px" label-position="top">
         <el-form-item label="Адрес незаконной свалки">
           <el-input v-model="nezakonForm.tc_area"></el-input>
@@ -87,17 +78,13 @@
       </span>
     </el-dialog>
 
-    <el-dialog
-      title="Аналитика региона"
-      :visible.sync="dialogStatVisible"
-      width="50%"
-    >
-    <img src="/stat-clasters.jpg" style="width:100%;"/>
-    <span slot="footer" class="dialog-footer">
+    <el-dialog title="Аналитика региона" :visible.sync="dialogStatVisible" width="50%">
+      <img src="/stat-clasters.jpg" style="width:100%;" />
+      <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="dialogStatVisible = false">Закрыть</el-button>
       </span>
     </el-dialog>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -120,7 +107,8 @@ export default {
       dialogStatVisible: false,
       filter: [],
       companies: [],
-      company: {}
+      company: {},
+      filterVisible: true
     };
   },
   async onRegionChange(e) {
@@ -212,7 +200,7 @@ export default {
   font-weight: 600;
 }
 
-.app-cont__stat{
+.app-cont__stat {
   margin-top: 50px;
   font-size: 14px;
 }
