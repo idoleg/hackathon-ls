@@ -36,7 +36,8 @@ export default {
     processing: "containers/processing",
     poligons: "containers/poligons",
     nezakon: "containers/nezakon",
-    filter: "containers/filter"
+    filter: "containers/filter",
+    ad: "containers/ad"
   }),
   data() {
     return {
@@ -108,6 +109,7 @@ export default {
       this.objectManager.add(this.poligons);
       this.objectManager.add(this.processing);
       this.objectManager.add(this.nezakon);
+      this.objectManager.add(this.ad);
 
       this.changeMapFilter();
     },
@@ -124,5 +126,6 @@ export default {
 .ymap-container {
   height: 100vh;
   width: 100%;
+  min-height: 800px;
 }
 </style>

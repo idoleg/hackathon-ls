@@ -25,6 +25,12 @@ export default {
     },
     filter(state){
       return state.filter;
+    },
+    ad(state) {
+      return {
+        type: "FeatureCollection",
+        features: state.ad
+      };
     }
   }
   

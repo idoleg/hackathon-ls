@@ -118,5 +118,32 @@ export default {
 
   setFilter(state, filter) {
     state.filter = filter;
+  },
+
+  setAd(state, ad) {
+    let data = ad.map(ad => {
+      const coords = ad.tc_coord.split(" ").map(coord => {
+        return parseFloat(coord);
+      });
+      return {
+        type: "Feature",
+        id: "ad" + ad.tc_num,
+        geometry: {
+          type: "Point",
+          coordinates: [coords[1], coords[0]],
+          iconColor: "#93278F"
+        },
+        options: {
+          preset: "islands#grayDotIcon"
+        },
+        properties: {
+          balloonContentHeader: "Объявление " + ad.tc_num,
+          balloonContentBody: `<p></p><p> ${ad.tc_text}</p>`,
+          type: "ad"
+        }
+        //...process
+      };
+    });
+    state.ad = data;
   }
 };

@@ -3,5 +3,6 @@ export default () => ({
     poligons: [],
     processing: [],
     nezakon: [],
-    filter: []
+    filter: [],
+    ad: []
 })

@@ -28,7 +28,7 @@ export default {
       menu: [
           {
               text: "Федеральный единый реестр",
-              link: "/"
+              link: "/dicts"
           },
           {
               text: "Интерактивная карта",

@@ -24,6 +24,7 @@
         <el-checkbox label="poligon" checked>Полигоны</el-checkbox>
         <el-checkbox label="processing" checked>Переработка отходов</el-checkbox>
         <el-checkbox label="nezakon" checked>Незаконные свалки</el-checkbox>
+        <el-checkbox label="ad" checked>Объявления</el-checkbox>
       </el-checkbox-group>
     </div>
     <div class="app-cont__input">
@@ -50,6 +51,7 @@
       <p>{{stat.poligons}} полигонов</p>
       <p>{{stat.processing}} заводов, переабатывающих отходы</p>
       <p>{{stat.nezakon}} незаконных свалок</p>
+      <p>{{stat.ad}} объявлений</p>
     </div>
 
     <el-dialog
@@ -100,7 +102,8 @@ export default {
         containers: 0,
         poligons: 0,
         processing: 0,
-        nezakon: 0
+        nezakon: 0,
+        ad: 0
       },
       nezakonForm: {},
       dialogNezakonVisible: false,
@@ -172,6 +175,10 @@ export default {
         this.$store.commit("containers/setNezakon", nezakon.data);
         this.stat.nezakon = nezakon.data.length;
 
+        let ad = await this.$axios.get(`/api/companies/ad`);
+        this.$store.commit("containers/setAd", ad.data);
+        this.stat.ad = ad.data.length;
+
         this.$store.commit("containers/setFilter", this.filter);
         this.$root.$emit("changeMap");
       } catch (err) {
@@ -187,7 +194,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .app-cont {
   display: flex;
   flex-direction: column;
@@ -201,7 +208,8 @@ export default {
 }
 
 .app-cont__stat {
-  margin-top: 50px;
+  margin-top: 40px;
   font-size: 14px;
 }
+
 </style>
