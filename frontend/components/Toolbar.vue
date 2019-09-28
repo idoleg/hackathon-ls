@@ -192,6 +192,11 @@ export default {
     },
     onFilterChange() {
       console.log(this.filter);
+      /*this.filter = [
+        "container",
+        "processing",
+        "nezakon",
+        "poligon"]; */
       this.$store.commit("containers/setFilter", this.filter);
       this.$root.$emit("changeMapFilter");
     }

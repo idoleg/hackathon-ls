@@ -43,6 +43,12 @@ class CompaniesController {
         return data;
     }
 
+    async ad({ request, params }) {
+        
+        let data = await Database.table('tb_obv').select('*').limit(100);
+        return data;
+    }
+
     async calculateGeoForContainers ({ request, params }) {
         const token = use('Config').get('app.ymapToken')
         const oper = await Database.table('tb_oper').where('tc_ogrn', '=', params.id);
